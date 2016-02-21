@@ -1,3 +1,5 @@
+### various sorting algorithms done in scratch for practice
+
 my_list = [8, 2, 7, 0, 15, 27, -2]
 
 def bubble(my_list):
