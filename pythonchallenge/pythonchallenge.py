@@ -132,8 +132,20 @@ print
 ############################################################
 import python_challenge_q4 as pcq4
 
-def candles(char_list):
+def candles(big_string):
 	# paired on this one with github.com/kb0rg!
 	# interpreting small as lower case and bodyguards and uppercase
 	# looking for this sequence lUUUlUUUl (exactly 3 bodyguards on each side, 9 characters)
-
+	candidates = []
+	index = 0
+	for char in big_string:
+		ind = big_string.index(char)
+		if char.islower():
+			if big_string[ind+1:ind+4].isupper() and big_string[ind+4].islower():
+				if big_string[ind+5:ind+8].isupper():
+					candidates.append(big_string[ind:ind+8])
+		# else if char == "/n":
+		# else:
+		# 	ind = ind + 4
+	return candidates
+print candles(pcq4.chars4)
