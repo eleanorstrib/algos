@@ -137,15 +137,19 @@ def candles(big_string):
 	# interpreting small as lower case and bodyguards and uppercase
 	# looking for this sequence lUUUlUUUl (exactly 3 bodyguards on each side, 9 characters)
 	candidates = []
-	index = 0
+
+	# remove escape characters
+	big_string = big_string.replace('\n', '')
+	ind=0
 	for char in big_string:
-		ind = big_string.index(char)
 		if char.islower():
-			if big_string[ind+1:ind+4].isupper() and big_string[ind+4].islower():
-				if big_string[ind+5:ind+8].isupper():
-					candidates.append(big_string[ind:ind+8])
-		# else if char == "/n":
-		# else:
-		# 	ind = ind + 4
-	return candidates
+			if big_string[ind+1:ind+4].isupper():
+				if big_string[ind+4].islower():
+					if big_string[ind+5:ind+8].isupper():
+						if big_string[ind+8].islower():
+							candidates.append(big_string[ind+4])
+				
+		ind = ind+1
+	return ''.join(candidates)
+
 print candles(pcq4.chars4)
