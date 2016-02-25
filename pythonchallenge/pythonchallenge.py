@@ -124,5 +124,16 @@ print "The 'rare characters' in this collection are all letters (one instance ea
 print 
 print "When you arrange them in order, you get '", ''.join(count_chars(pcq3.chars)), "'."
 print "The next url is:", BASE_URL + ''.join(count_chars(pcq3.chars)) + ".html"
+print
 
-print "*******QUESTION 3*******"
+############################################################
+##  Question 4                                            ##
+##  http://www.pythonchallenge.com/pc/def/equality.html   ##
+############################################################
+import python_challenge_q4 as pcq4
+
+def candles(char_list):
+	# paired on this one with github.com/kb0rg!
+	# interpreting small as lower case and bodyguards and uppercase
+	# looking for this sequence lUUUlUUUl (exactly 3 bodyguards on each side, 9 characters)
+
