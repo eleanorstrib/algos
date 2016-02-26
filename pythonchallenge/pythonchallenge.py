@@ -147,9 +147,37 @@ def candles(big_string):
 				if big_string[ind+4].islower():
 					if big_string[ind+5:ind+8].isupper():
 						if big_string[ind+8].islower():
-							candidates.append(big_string[ind+4])
+							candidates.append(str(ind+4))
 				
 		ind = ind+1
 	return ''.join(candidates)
 
 print candles(pcq4.chars4)
+
+print "*******QUESTION 4*******"
+print "The 'rare characters' in this collection are all letters (one instance each)."
+print 
+print "When you arrange them in order, you get '", ''.join(count_chars(pcq3.chars)), "'."
+print "The next url is:", BASE_URL + ''.join(count_chars(pcq3.chars)) + ".html"
+print
+
+import urllib2
+
+def chainsaw():
+	num="12345"
+	num_dict={}
+	counter=0
+	for x in range(401):
+		response = urllib2.urlopen('http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=' + num)
+		html = response.read()
+		num = ''.join([str(i) for i in html.split() if i.isdigit()])
+		num_dict[num] = num_dict.get(num, "") + html
+	return num_dict
+		# num_dict.get(num, 0) + 1
+		# num_dict = {num: num_dict[num] + 1 for (num,num_dict[num]) in }
+		# {key: value for (key, value) in iterable}
+		# if num_dict[num] == 2:
+		# 	counter += 1
+
+print chainsaw()
+
