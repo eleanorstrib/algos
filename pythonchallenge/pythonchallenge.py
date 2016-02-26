@@ -1,22 +1,24 @@
 BASE_URL = "http://www.pythonchallenge.com/pc/def/"
 
 ####################################################
-##  Question 1             						  ##
+##  Question 0            						  ##
 ##  http://www.pythonchallenge.com/pc/def/0.html  ##
 ####################################################
 
-def question1():
+def power():
 	add_to_url = str(2**38)
 	url = BASE_URL + add_to_url + ".html"
 	return url
 
 
-print "*******QUESTION 1*******"
-print "URL for next page replaces the '0' with the value on the TV screen", question1()
+print "*******QUESTION 0*******"
+print "URL for next page replaces the '0' with the value on the TV screen", power()
+print
+print "***********************"
 print
 
 #######################################################
-##  Question 2                                       ##
+##  Question 1                                       ##
 ##  http://www.pythonchallenge.com/pc/def/map.html   ##
 #######################################################
 
@@ -54,7 +56,7 @@ dict_lett = {
 
 
 
-def question2(dict_lett, phrase):
+def mapping(dict_lett, phrase):
 	new_phrase = list(phrase)
 
 	for i in range (0, len(new_phrase)):
@@ -63,15 +65,17 @@ def question2(dict_lett, phrase):
 
 	return ''.join(new_phrase)
 
-print "*******QUESTION 2*******"
+print "*******QUESTION 1*******"
 print "This is the translation of the code:"
-print question2(dict_lett, phrase)
+print mapping(dict_lett, phrase)
 print "To get to the next url, I encoded the last three letters in the current url:"
 print " m -> o, a -> c, p -> r, which gives us: http://www.pythonchallenge.com/pc/def/ocr.html"
 print
+print "***********************"
+print
 
 #########################################################
-##  Question 3                                         ##
+##  Question 2                                         ##
 ##  http://www.pythonchallenge.com/pc/def/ocr.html     ##
 #########################################################
 
@@ -119,15 +123,17 @@ def count_chars(char_list):
 
 	return alpha_in_order
 
-print "*******QUESTION 3*******"
+print "*******QUESTION 2*******"
 print "The 'rare characters' in this collection are all letters (one instance each)."
 print 
 print "When you arrange them in order, you get '", ''.join(count_chars(pcq3.chars)), "'."
 print "The next url is:", BASE_URL + ''.join(count_chars(pcq3.chars)) + ".html"
 print
+print "***********************"
+print
 
 ############################################################
-##  Question 4                                            ##
+##  Question 3                                            ##
 ##  http://www.pythonchallenge.com/pc/def/equality.html   ##
 ############################################################
 import python_challenge_q4 as pcq4
@@ -147,37 +153,69 @@ def candles(big_string):
 				if big_string[ind+4].islower():
 					if big_string[ind+5:ind+8].isupper():
 						if big_string[ind+8].islower():
-							candidates.append(str(ind+4))
+							candidates.append(ind+4)
 				
 		ind = ind+1
-	return ''.join(candidates)
+	return candidates
 
-print candles(pcq4.chars4)
-
-print "*******QUESTION 4*******"
-print "The 'rare characters' in this collection are all letters (one instance each)."
-print 
-print "When you arrange them in order, you get '", ''.join(count_chars(pcq3.chars)), "'."
-print "The next url is:", BASE_URL + ''.join(count_chars(pcq3.chars)) + ".html"
+print "*******QUESTION 3*******"
+print "Looked for a pattern: one lowercase letter, followed by 3 uppercase, followed by 1 lowercase,"
+print "followed by 3 uppercase."
+print "When this was run, it provided an array of letters following this pattern."
+print "The middle, lowercase letters from each chunk spelt:", candles(pcq4.chars4)
 print
+print "Adding this string to the url got us to a page that simply said 'linkedlist.php'."
+print "This url led to the next step:", BASE_URL + "linkedlist.php."
+print
+print "***********************"
+print
+
+
+############################################################
+##  Question 4                                            ##
+##  http://www.pythonchallenge.com/pc/def/linkedlist.php  ##
+############################################################
 
 import urllib2
 
 def chainsaw():
+	#number shown when moused over or clicked on picture
 	num="12345"
+	# dict to hold responses and values for number
 	num_dict={}
-	counter=0
+	# clue said that 400 times was more than enough
+	# this loop uses the "num" value to get the response for each page 
+	# extract the digit, which becomes the new 'num' and put it into a dict
+	# observed that each value occurred one or two times first, then looked at responses
 	for x in range(401):
 		response = urllib2.urlopen('http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=' + num)
 		html = response.read()
 		num = ''.join([str(i) for i in html.split() if i.isdigit()])
 		num_dict[num] = num_dict.get(num, "") + html
-	return num_dict
-		# num_dict.get(num, 0) + 1
-		# num_dict = {num: num_dict[num] + 1 for (num,num_dict[num]) in }
-		# {key: value for (key, value) in iterable}
-		# if num_dict[num] == 2:
-		# 	counter += 1
+	return num_dict['']
 
+print "*******QUESTION 4*******"
+print "The picture was the key here -- if you moused over or clicked, you went to the url:"
+print "http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=12345."
+print "Following it was fruitless, but there was a comment in the html file saying 400x was more than enough"
+print "and urllib would be helpful.  Discovered that the responses held the key -- for the value '' message was:  "
 print chainsaw()
+print 
+print "Trying", BASE_URL + "peak.html was the correct answer."
+print
+print "***********************"
+print
+
+############################################################
+##  Question 5                                            ##
+##  http://www.pythonchallenge.com/pc/def/equality.html   ##
+############################################################
+import pickle
+
+def pickle():
+	file = open('ptext.txt', 'r')
+	decoded = pickle.load(file)
+	return decoded
+
+print pickle()
 
